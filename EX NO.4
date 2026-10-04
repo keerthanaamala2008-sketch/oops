@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+class InternetBill {
+    int accountNo;
+    String accountHolder;
+    int previousUsage, currentUsage;
+    String planType;
+
+    double calculateBill(int gb) {
+        double bill = 0;
+
+        if (planType.equalsIgnoreCase("basic")) {
+            if (gb <= 50)
+                bill = gb * 20;
+            else
+                bill = 50 * 20 + (gb - 50) * 30;
+        } else {
+            if (gb <= 100)
+                bill = gb * 15;
+            else
+                bill = 100 * 15 + (gb - 100) * 25;
+        }
+
+        return bill;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        InternetBill ib = new InternetBill();
+
+        System.out.print("Account Number: ");
+        ib.accountNo = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Account Holder Name: ");
+        ib.accountHolder = sc.nextLine();
+
+        System.out.print("Previous Data Usage (GB): ");
+        ib.previousUsage = sc.nextInt();
+
+        System.out.print("Current Data Usage (GB): ");
+        ib.currentUsage = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Plan Type (Basic/Premium): ");
+        ib.planType = sc.nextLine();
+
+        int gb = ib.currentUsage - ib.previousUsage;
+
+        System.out.println("Data Used: " + gb + " GB");
+        System.out.println("Bill Amount: Rs." + ib.calculateBill(gb));
+    }
+}
